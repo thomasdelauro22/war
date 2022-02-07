@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const PostSchema = mongoose.Schema({
+const PlayerSchema = mongoose.Schema({
     winningUser: {
         type: String,
         required: true,
     }
 });
 
-module.exports = mongoose.model('Post', PostSchema)
+module.exports = mongoose.model('Player', PlayerSchema)

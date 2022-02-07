@@ -6,9 +6,17 @@ require('dotenv/config');
 
 app.use(bodyParser.json());
 
-//Import Routes
-const postsRoute = require('./routes/posts.js');
-app.use('/posts', postsRoute);
+app.get('/', (req, res) => {
+    try {
+        console.log("Welcome");
+    } catch (err) {
+        res.json(err);
+    }
+});
+
+//Import Route
+const playerRoute = require('./routes/playwar.js');
+app.use('/playwar', playerRoute);
 
 //DB connection
 mongoose.connect(process.env.DB_CONNECTION, 

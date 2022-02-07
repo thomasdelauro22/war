@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../models/Post');
+const Player = require('../models/Player');
 
 //Use a queue for each player's cards
 function Queue() {
@@ -44,12 +44,12 @@ function shuffleDeck(deck) {
 
 //creates each player's deck
 function initialize_decks() {
-    var deck = []
+    var deck = [];
     for (var i=0; i<52; i++) {
         deck.push(i);
     }
     shuffleDeck(deck);
-    var aliceDeck = deck.slice(0, 26)
+    var aliceDeck = deck.slice(0, 26);
     var bobDeck = deck.slice(26, 52);
     var Alice = new Queue();
     var Bob = new Queue();
@@ -65,7 +65,6 @@ function initialize_decks() {
 //they lose immediately
 function play() {
     let {Alice, Bob} = initialize_decks();
-    console.log(Alice, Bob);
     //Both players still have cards
     while(!Alice.isEmpty() && !Bob.isEmpty()) {
         console.log(Alice.length(), Bob.length());
@@ -88,7 +87,6 @@ function play() {
         }
         //Cards are same rank, go to war
         else {
-            console.log("war");
             while (true) {
                 //add face down cards
                 if (!Alice.isEmpty()) {
@@ -138,7 +136,6 @@ function play() {
                 }
             }
         }
-
     }
     //return the winner
     if (Alice.isEmpty()) return "Bob";
@@ -148,8 +145,8 @@ function play() {
 //Get back total wins for each player
 router.get('/', async (req, res) => {
     try {
-        const AliceWins = await Post.count({winningUser: 'Alice'});
-        const BobWins = await Post.count({winningUser: 'Bob'});
+        const AliceWins = await Player.count({winningUser: 'Alice'});
+        const BobWins = await Player.count({winningUser: 'Bob'});
         res.json({"Alice wins": AliceWins, "Bob wins": BobWins});
     } catch (err) {
         res.json(err);
@@ -159,7 +156,7 @@ router.get('/', async (req, res) => {
 //Start a game and update database with player's win
 router.post('/', async (req,res) => {
     var winner = play();
-    const post = new Post({
+    const post = new Player({
         winningUser: winner
     });
     try {
