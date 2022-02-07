@@ -6,23 +6,23 @@ express
 mongoose
 body-parser
 dotenv
-
+```
 npm install express body-parser mongoose dotenv
-
+```
 After cloning the repo, run
-
+```
 npm start
-
+```
 from the home directory. The console should display "connected to db" once the database connection is established
 
 To simulate a game of War (and update the database with the winning player):
-
+```
 POST localhost:3000/playwar
-
+```
 To get the lifetime wins for each player:
-
+```
 GET localhost:3000/playwar
-
+```
 Logic used in War game:
 - The cards are represented by the integers 0-51
 - The 2's in the deck are 0-3, the 3's are 4-7, ..., the Aces are 48-51
