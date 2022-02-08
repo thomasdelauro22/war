@@ -67,7 +67,6 @@ function play() {
     let {Alice, Bob} = initialize_decks();
     //Both players still have cards
     while(!Alice.isEmpty() && !Bob.isEmpty()) {
-        console.log(Alice.length(), Bob.length());
         var aliceCard = Alice.dequeue();
         var aliceCardVal = Math.floor( aliceCard/ 4);
         var bobCard = Bob.dequeue();
